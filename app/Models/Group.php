@@ -9,9 +9,13 @@ class Group extends Model
 {
 	use SoftDeletes;
 
+	protected $fillable = [
+        'name',
+    ];
+
     public function users()
 	{
-		return $this->hasMany("App\Models\User");
+		return $this->belongsToMany("App\Models\User");
 	}
 
     public function posts()
