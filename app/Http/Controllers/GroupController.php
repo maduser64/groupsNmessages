@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Group;
+use App\Models\User;
 
 class GroupController extends Controller
 {
@@ -23,7 +25,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        return view('createGroup');
     }
 
     /**
@@ -34,7 +36,9 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newGroup = Group::create(['name' => $request->name]); // create the group
+        $newGroup->users()->sync([$request->user()->id]); // add the creator to that group
+        return redirect('/group/'.$newGroup->id); // redirect to the new group
     }
 
     /**
@@ -45,7 +49,8 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+        $group = Group::find($id);
+        return view('group', compact('group'));
     }
 
     /**
