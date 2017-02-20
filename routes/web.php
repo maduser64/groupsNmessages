@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('post/react/{id}/{reaction_type}', 'ReactionController@reactToPost');
+Route::get('comment/react/{id}/{reaction_type}', 'ReactionController@reactToComment');
+Route::get('reply/react/{id}/{reaction_type}', 'ReactionController@reactToReply');
