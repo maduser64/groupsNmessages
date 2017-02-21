@@ -49,6 +49,15 @@
                         @foreach ($group->posts as $post)
                             <tr>
                                 <td><p>{{ $post->content }}</p></td>
+                                <td>
+                                    <form role="form" method="POST" action="/group/{{$group->id}}/post/{{$post->id}}">
+                                    {{ csrf_field() }}
+                                    <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

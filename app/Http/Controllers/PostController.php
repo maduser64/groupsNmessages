@@ -90,8 +90,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $post = Post::find($request->post);
+        $post->delete();
+        return redirect('/group/' . $request->group);
     }
 }
