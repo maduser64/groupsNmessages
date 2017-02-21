@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->morphedByMany('App\Models\Reply', 'reactable')->whereDeletedAt(null);
     }
+
+    public function isInGroup(Group $group)
+    {
+        return $this->groups->contains($group->id);
+    }
 }

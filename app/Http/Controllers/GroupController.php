@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
 use App\Models\User;
 
 class GroupController extends Controller
 {
+    public function joinGroup(Request $request)
+    {
+        $group = Group::find($request->id);
+        $group->users()->sync([$request->user()->id]);
+        return redirect('/group/'.$group->id);
+    }
+
+    public function leaveGroup(Request $request)
+    {
+        $group = Group::find($request->id);
+        $group->users()->detach([$request->user()->id]);
+        return redirect('/group/'.$group->id);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +65,12 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::find($id);
-        return view('group', compact('group'));
+        $isInGroup = Auth::user()->isInGroup($group);
+        
+        return view('group', [
+            'group' => $group,
+            'userIsInGroup' => $isInGroup,
+        ]);
     }
 
     /**

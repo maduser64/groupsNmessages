@@ -25,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->groups;
-        return view('home', ['groups' => $groups]);
+        $myGroups = Auth::user()->groups;
+        $allGroups = Group::all();
+        return view('home', ['myGroups' => $myGroups, 'allGroups' => $allGroups]);
     }
 }

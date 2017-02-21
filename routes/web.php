@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	if (Auth::guest()) return view('welcome');
+    return redirect('home');
 });
 
 Auth::routes();
@@ -24,3 +25,5 @@ Route::get('comment/react/{id}/{reaction_type}', 'ReactionController@reactToComm
 Route::get('reply/react/{id}/{reaction_type}', 'ReactionController@reactToReply');
 
 Route::resource('group', 'GroupController');
+Route::post('group/{id}/join', 'GroupController@joinGroup');
+Route::post('group/{id}/leave', 'GroupController@leaveGroup');
