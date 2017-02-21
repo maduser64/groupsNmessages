@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Group;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -11,9 +13,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $group = Group::find($request->group);
+        $isInGroup = Auth::user()->isInGroup($group);
+        
+        return view('group', [
+            'group' => $group,
+            'userIsInGroup' => $isInGroup,
+        ]);
     }
 
     /**
@@ -34,7 +42,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $group = Group::find($request->group);
+        $post = new Post();
+        $post->content = $request->post_content;
+        $post->user_id = $request->user()->id;
+        $group->posts()->save($post);
+        return redirect('/group/'.$group->id);
     }
 
     /**

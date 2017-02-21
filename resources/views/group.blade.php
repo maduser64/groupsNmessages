@@ -27,11 +27,28 @@
                 </form>
             @endif
                 <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" action="/group/{{ $group->id }}/post">
+                    {{ csrf_field() }}
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">New Post</label>
+
+                            <div class="col-md-6">
+                                <input id="post_content" class="form-control" name="post_content" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Post
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-bordered">
                         <tbody>
-                        @foreach ($group->users as $user)
+                        @foreach ($group->posts as $post)
                             <tr>
-                                <td><p>{{ $user->name }}</p></td>
+                                <td><p>{{ $post->content }}</p></td>
                             </tr>
                         @endforeach
                         </tbody>

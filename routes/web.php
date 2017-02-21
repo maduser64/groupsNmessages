@@ -27,3 +27,5 @@ Route::get('reply/react/{id}/{reaction_type}', 'ReactionController@reactToReply'
 Route::resource('group', 'GroupController');
 Route::post('group/{id}/join', 'GroupController@joinGroup');
 Route::post('group/{id}/leave', 'GroupController@leaveGroup');
+
+Route::resource('group.post', 'PostController');
