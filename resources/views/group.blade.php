@@ -49,6 +49,7 @@
                         @foreach ($group->posts as $post)
                             <tr>
                                 <td><p>{{ $post->content }}</p></td>
+                                <td><a href="/group/{{$group->id}}/post/{{$post->id}}/edit" class="btn btn-default">Edit</a></td>
                                 <td>
                                     <form role="form" method="POST" action="/group/{{$group->id}}/post/{{$post->id}}">
                                     {{ csrf_field() }}

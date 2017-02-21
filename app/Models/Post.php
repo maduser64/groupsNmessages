@@ -20,7 +20,7 @@ class Post extends Model
 
     public function group()
     {
-        return $this->post->belongsTo("App\Models\Group");
+        return $this->belongsTo("App\Models\Group");
     }
 
     public function comments()

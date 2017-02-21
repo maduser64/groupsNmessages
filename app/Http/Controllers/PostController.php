@@ -67,9 +67,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $post = Post::find($request->post);
+        return view('editPost', ['post' => $post]);
     }
 
     /**
@@ -81,7 +82,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($request->post);
+        $post->content = $request->post_content;
+        $post->save();
+        return redirect('/group/' . $post->group->id);
     }
 
     /**
